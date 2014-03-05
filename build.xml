@@ -1,26 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="angular" default="build">
- <target name="build"
-   depends="prepare,jslint"/>
-
- <target name="build-parallel"
-   depends="prepare"/>
-
- <target name="clean" description="Cleanup build artifacts">
-   <delete dir="${basedir}/build/logs"/>
- </target>
-
- <target name="prepare" depends="clean" description="Prepare for build">
-    <mkdir dir="${basedir}/build/logs"/>
- </target>
- <target name="jslint" description="Run the JSLint tool on JS files">
-  <fileset dir="todo" id="jsfiles.raw">
-    <include name="**/*.js" />
-    <exclude name="**/*.min.js" />
-  </fileset>
-  <pathconvert pathsep=" " property="jsfiles.clean" refid="jsfiles.raw" />
-  <exec executable="java" output="build/logs/jslint.xml">
-    <arg line="-jar jslint/jslint4java-2.0.5.jar --report xml ${jsfiles.clean}" />
-  </exec>
-</target>
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<project name="angularjs" default="help">
+     
+    <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpath="jslint/jslint4java-2.0.0.jar">
+     
+    <property name="reports.dir" value="reports">
+     
+    <target name="clean" description="Removes output files created by other targets.">
+        <delete dir="${reports.dir}" failonerror="true">
+    </delete></target>
+     
+    <target name="run-jslint" depends="clean">
+        <mkdir dir="reports">
+        //options for jslint
+        <jslint options="white,undef,plusplus,newcap,vars,indent=4">
+            //global variables like jquery
+            <predef>jQuery, setTimeout, history, window, document</predef>
+            <formatter type="junit" destfile="${reports.dir}">
+            <fileset dir="js" includes="**/*.js" excludes="lib/*.js">
+        </fileset></formatter></jslint>
+    </mkdir></target>
+     
+    <target name="help">
+        <echo>PROJECTNAME Ant Tools. Available targets:</echo>
+        <echo>   help:          Displays this help.</echo>
+        <echo>   clean:         Removes output files created by other targets.</echo>
+        <echo>   run-jslint:    runs the js-lint tests</echo>
+    </target>
+</property>
+</taskdef>
 </project>
