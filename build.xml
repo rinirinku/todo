@@ -20,7 +20,7 @@
   </fileset>
   <pathconvert pathsep=" " property="jsfiles.clean" refid="jsfiles.raw" />
   <exec executable="java" output="build/logs/jslint.xml">
-    <arg line="-jar jslint/jslint4java-2.0.5.jar --report xml ${jsfiles.clean}" />
+    <arg line="-jar $JSLINT_HOME/jslint4java-2.0.5.jar --report xml ${jsfiles.clean}" />
   </exec>
 </target>
 </project>
