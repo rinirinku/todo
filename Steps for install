@@ -1,0 +1,14 @@
+install node
+        npm
+        bower
+        yoeman 
+        cg-angular
+  npm server -package.json/ node module
+  Bower client- bower.json/ bower components
+  
+  
+  1)npm install
+  2)bower install
+  3)grunt build
+  4)grunt serve http://localhost:9001/#/home
+  bower.json,package.json,app.js,index.html
